@@ -97,15 +97,17 @@ Describe "TreeView Module Tests" {
         # }
         It "TreeView -f shows full path" {
             $output = & { TreeView -Path $Root -Depth 1 -F } | Out-String
-            $resolved = [Regex]::Escape((Resolve-Path $Root).ProviderPath)
+
+            # 强制使用长路径（避免 GitHub Actions 返回短路径 RUNNER~1）
+            $resolved = [Regex]::Escape((Get-Item $Root).FullName)
 
             $output -split "`r?`n" | ForEach-Object {
-                # 只匹配以 C:\ 开头的路径部分（忽略前缀树枝符号）
                 if ($_ -match "([A-Za-z]:\\.+)$") {
                     $matches[1] | Should -Match $resolved
                 }
             }
         }
+
 
         It "TreeView -icon shows icons" {
             $output = & { TreeView -Path $Root -Depth 1 -Icon } | Out-String
