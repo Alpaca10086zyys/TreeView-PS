@@ -1,0 +1,43 @@
+name: PowerShell Module CI/CD
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+
+jobs:
+    test-and-publish:
+        runs-on: windows-latest
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+
+            - name: Setup PowerShell
+              uses: actions/setup-powershell@v3
+
+            - name: Install Pester
+              run: Install-Module -Name Pester -Force -Scope CurrentUser
+
+            - name: Run Pester tests
+              run: |
+                  Invoke-Pester -Path .\Tests -Output Detailed
+
+            - name: Update ModuleVersion
+              shell: pwsh
+              run: |
+                  $psd1Path = ".\TreeView.psd1"
+                  $psd1 = Get-Content $psd1Path
+                  $newVersion = "1.0.$env:GITHUB_RUN_NUMBER"
+                  $psd1 = $psd1 -replace "ModuleVersion\s*=\s*'.*?'", "ModuleVersion = '$newVersion'"
+                  Set-Content $psd1Path $psd1
+              env:
+                  GITHUB_RUN_NUMBER: ${{ github.run_number }}
+
+            - name: Publish to PSGallery
+              if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+              env:
+                  PSGalleryApiKey: ${{ secrets.PSGalleryApiKey }}
+              run: |
+                  Publish-Module -Path . -NuGetApiKey $env:PSGalleryApiKey -Repository PSGallery -Force
