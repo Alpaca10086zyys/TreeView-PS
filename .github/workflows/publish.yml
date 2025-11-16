@@ -46,4 +46,4 @@ jobs:
               env:
                   PSGalleryApiKey: ${{ secrets.PSGalleryApiKey }}
               run: |
-                  Publish-Module -Path . -NuGetApiKey $env:PSGalleryApiKey -Repository PSGallery -Force
+                  Publish-Module -Path ./TreeView -NuGetApiKey $env:PSGalleryApiKey -Repository PSGallery -Force
