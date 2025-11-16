@@ -1,4 +1,4 @@
-# TreeView.ps1 — A Modern Tree Command for Windows 🌲
+# TreeView — A Modern Tree Command for Windows Powershell🌲
 
 A better tree for Windows — supports depth (-Depth), icons (-IconMode), and Unicode tree characters.
 
