@@ -32,7 +32,9 @@ function Show-Tree {
         $isLast = ($i -eq $items.Count - 1)
         $symbol = if ($isLast) { $Symbols.Last } else { $Symbols.Branch }
 
-        $display = if ($FullPath) { $item.FullName } else { $item.Name }
+        # $display = if ($FullPath) { $item.FullName } else { $item.Name }
+        $display = if ($FullPath) { (Get-Item $item.FullName).FullName } else { $item.Name }
+
         $colorName = Get-Color $item
 
         # 输出内容
