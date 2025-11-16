@@ -34,10 +34,10 @@ jobs:
               shell: pwsh
               run: |
                   $psd1Path = ".\TreeView\TreeView.psd1"
-                  $psd1 = Get-Content $psd1Path
+                  $content = Get-Content $psd1Path -Raw
                   $newVersion = "1.0.$env:GITHUB_RUN_NUMBER"
-                  $psd1 = $psd1 -replace "ModuleVersion\s*=\s*'.*?'", "ModuleVersion = '$newVersion'"
-                  Set-Content $psd1Path $psd1
+                  $content = $content -replace "ModuleVersion\s*=\s*'.*?'", "ModuleVersion = '$newVersion'"
+                  Set-Content $psd1Path $content -Encoding utf8
               env:
                   GITHUB_RUN_NUMBER: ${{ github.run_number }}
 

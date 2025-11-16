@@ -1,4 +1,4 @@
-﻿@{
+@{
 
     # 与此清单关联的脚本模块或二进制模块文件。
     RootModule = 'TreeView.psm1'
@@ -19,7 +19,7 @@
     CompanyName = 'Unknown'
 
     # 此模块的版权声明
-    Copyright = '(c) 2025 YourName。保留所有权利。'
+    Copyright = '(c) 2025 ZhangYue。保留所有权利。'
 
     # 此模块所提供功能的说明
     Description = 'A Tree View command with icons and colors'
