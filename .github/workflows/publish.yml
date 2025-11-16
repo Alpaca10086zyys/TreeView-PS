@@ -20,7 +20,7 @@ jobs:
 
             - name: Run Pester tests
               run: |
-                  Invoke-Pester -Path .\Tests -Output Detailed
+                  Invoke-Pester -Path .\TreeView\Tests -Output Detailed
 
             - name: Install PSScriptAnalyzer
               shell: pwsh
@@ -33,7 +33,7 @@ jobs:
             - name: Update ModuleVersion
               shell: pwsh
               run: |
-                  $psd1Path = ".\TreeView.psd1"
+                  $psd1Path = ".\TreeView\TreeView.psd1"
                   $psd1 = Get-Content $psd1Path
                   $newVersion = "1.0.$env:GITHUB_RUN_NUMBER"
                   $psd1 = $psd1 -replace "ModuleVersion\s*=\s*'.*?'", "ModuleVersion = '$newVersion'"
@@ -46,4 +46,4 @@ jobs:
               env:
                   PSGalleryApiKey: ${{ secrets.PSGalleryApiKey }}
               run: |
-                  Publish-Module -Path ./TreeView -NuGetApiKey $env:PSGalleryApiKey -Repository PSGallery -Force
+                  Publish-Module -Path .\TreeView -NuGetApiKey $env:PSGalleryApiKey -Repository PSGallery -Force
