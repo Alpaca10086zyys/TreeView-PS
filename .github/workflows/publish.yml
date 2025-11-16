@@ -28,7 +28,7 @@ jobs:
 
             - name: Run PSScriptAnalyzer
               shell: pwsh
-              run: Invoke-ScriptAnalyzer -Path .\Public\TreeView.ps1 -Recurse -Severity Warning
+              run: Invoke-ScriptAnalyzer -Path .\TreeView -Recurse -Severity Warning
 
             - name: Update ModuleVersion
               shell: pwsh
