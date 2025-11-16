@@ -9,7 +9,7 @@
     FunctionsToExport = @('TreeView')
     CmdletsToExport   = @()
     VariablesToExport = @()
-    AliasesToExport   = @()
+    AliasesToExport   = @('tr')
     PowerShellVersion = '5.1'
 
     PrivateData       = @{
