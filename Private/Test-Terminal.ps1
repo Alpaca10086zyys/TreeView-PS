@@ -1,4 +1,4 @@
-function Test-TerminalUnicodeSupport {
+﻿function Test-TerminalUnicodeSupport {
     return (
         $Host.UI.SupportsVirtualTerminal -and
         [Console]::OutputEncoding.CodePage -eq 65001

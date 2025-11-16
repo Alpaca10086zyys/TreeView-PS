@@ -1,11 +1,11 @@
-﻿$global:TreeSymbolsUnicode = @{
+﻿$script:TreeSymbolsUnicode = @{
     Branch = "├── "
     Last   = "└── "
     Pipe   = "│   "
     Space  = "    "
 }
 
-$global:TreeSymbolsAscii = @{
+$script:TreeSymbolsAscii = @{
     Branch = "+-- "
     Last   = "\-- "
     Pipe   = "|   "

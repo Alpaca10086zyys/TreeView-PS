@@ -33,13 +33,6 @@ function Show-Tree {
         $symbol = if ($isLast) { $Symbols.Last } else { $Symbols.Branch }
 
         $display = if ($FullPath) { $item.FullName } else { $item.Name }
-        # if ($FullPath) {
-        #     $root = Resolve-Path $Dir | Split-Path -Parent
-        #     $display = Join-Path $root $item.FullName.Substring($root.Length).TrimStart("\","/")
-        # } else {
-        #     $display = $item.Name
-        # }
-
         $colorName = Get-Color $item
 
         # 输出内容

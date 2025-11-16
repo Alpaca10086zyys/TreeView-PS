@@ -14,9 +14,9 @@
     $useUnicode = Test-TerminalUnicodeSupport
 
     if (-not $useUnicode) {
-        Write-Host "[*] Unicode 树形符号未启用，已自动切换为 ASCII 样式。" -ForegroundColor Yellow
-        Write-Host "    如果启用 UTF-8 编码，可获得更美观的输出。"
-        Write-Host "    请尝试：[Console]::OutputEncoding = [System.Text.Encoding]::UTF8"
+        Write-OutOrHost "[*] Unicode 树形符号未启用，已自动切换为 ASCII 样式。" -ForegroundColor Yellow
+        Write-OutOrHost "    如果启用 UTF-8 编码，可获得更美观的输出。"
+        Write-OutOrHost "    请尝试：[Console]::OutputEncoding = [System.Text.Encoding]::UTF8"
     }
 
     $resolved = Resolve-Path $Path
