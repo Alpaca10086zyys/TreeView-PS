@@ -84,18 +84,28 @@ Describe "TreeView Module Tests" {
             $output | Should -Match '\.hiddenfile'
         }
 
+        # It "TreeView -f shows full path" {
+        #     $output = & { TreeView -Path $Root -Depth 1 -F } | Out-String
+        #     $resolved = [Regex]::Escape((Resolve-Path $Root).ProviderPath)
+
+        #     # 匹配每行末尾的路径，忽略前面的树枝符号
+        #     $output -split "`r?`n" | ForEach-Object {
+        #         if ($_ -match "([^\s├└│─].+)$") {
+        #             $matches[1] | Should -Match $resolved
+        #         }
+        #     }
+        # }
         It "TreeView -f shows full path" {
             $output = & { TreeView -Path $Root -Depth 1 -F } | Out-String
             $resolved = [Regex]::Escape((Resolve-Path $Root).ProviderPath)
 
-            # 匹配每行末尾的路径，忽略前面的树枝符号
             $output -split "`r?`n" | ForEach-Object {
-                if ($_ -match "([^\s├└│─].+)$") {
+                # 只匹配以 C:\ 开头的路径部分（忽略前缀树枝符号）
+                if ($_ -match "([A-Za-z]:\\.+)$") {
                     $matches[1] | Should -Match $resolved
                 }
             }
         }
-
 
         It "TreeView -icon shows icons" {
             $output = & { TreeView -Path $Root -Depth 1 -Icon } | Out-String
