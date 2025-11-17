@@ -49,6 +49,18 @@ Get-Module -ListAvailable TreeView | Select-Object Name, Version, Path
 treeview
 ```
 
+如果控制台报：
+
+```text
+treeview :在模块“TreeView"中找到“treeview”命令，但无法加载该模块。有关详细信息，请运行“Import-Module Treeview”
+```
+
+则需要引入一下模块：
+
+```ps
+Import-Module Treeview
+```
+
 ---
 
 ### 方法 2 — 从 GitHub 克隆（不推荐）
