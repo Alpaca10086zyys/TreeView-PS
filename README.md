@@ -1,5 +1,3 @@
-好的！下面是 **按你的要求排版成“上中文 / 下英文”顺序的双语 README**，结构清晰、完全对应、适合直接放到 GitHub。
-
 ---
 
 # 🌲 TreeView — 现代化的 Windows PowerShell 目录树工具
