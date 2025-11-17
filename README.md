@@ -65,6 +65,12 @@ treeview :在模块“TreeView"中找到“treeview”命令，但无法加载�
 Import-Module Treeview
 ```
 
+如遇脚本被阻止，请运行下列指令在当前用户通过安全策略：
+
+```ps
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 ---
 
 ### 方法 2 — 从 GitHub 克隆（不推荐）
