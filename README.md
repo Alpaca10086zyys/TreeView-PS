@@ -1,5 +1,3 @@
----
-
 # 🌲 TreeView — 现代化的 Windows PowerShell 目录树工具
 
 **TreeView** 是一个为 Windows PowerShell / PowerShell 7 打造的现代化 `tree` 命令替代品。
@@ -29,6 +27,10 @@
 
 支持 **Windows PowerShell 5.1** 与 **PowerShell 7+**。
 
+### • 兼容非Unicode编码环境
+
+在ANSI环境下树枝会自动替换成`+`, `|`, `-`, '\'.
+
 ---
 
 ## 📦 安装（开箱即用！）
@@ -49,6 +51,24 @@ Get-Module -ListAvailable TreeView | Select-Object Name, Version, Path
 
 ```powershell
 treeview
+```
+
+如果控制台报：
+
+```text
+treeview :在模块“TreeView"中找到“treeview”命令，但无法加载该模块。有关详细信息，请运行“Import-Module Treeview”
+```
+
+则需要引入一下模块：
+
+```ps
+Import-Module Treeview
+```
+
+如遇脚本被阻止，请运行下列指令在当前用户通过安全策略：
+
+```ps
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
 ---

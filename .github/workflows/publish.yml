@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - "README.md"
-      - "README*.md" # 可选，兼容 README-zh.md 等
+    paths:
+      - "TreeView/**"
   pull_request:
 
 jobs:
