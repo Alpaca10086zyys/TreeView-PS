@@ -8,6 +8,6 @@ $script:AnsiColors = @{
     Yellow  = "$esc[33m"
     Red     = "$esc[31m"
     Cyan    = "$esc[36m"
-    White   = "$esc[37m"
+    White   = ""
     Reset   = "$esc[0m"
 }
