@@ -1,49 +1,52 @@
 name: PowerShell Module CI/CD
 
 on:
-    push:
-        branches:
-            - main
-    pull_request:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "README.md"
+      - "README*.md" # 可选，兼容 README-zh.md 等
+  pull_request:
 
 jobs:
-    test-and-publish:
-        runs-on: windows-latest
+  test-and-publish:
+    runs-on: windows-latest
 
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v3
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-            - name: Install Pester
-              shell: pwsh
-              run: Install-Module -Name Pester -Force -Scope CurrentUser
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module -Name Pester -Force -Scope CurrentUser
 
-            - name: Run Pester tests
-              run: |
-                  Invoke-Pester -Path .\TreeView\Tests -Output Detailed
+      - name: Run Pester tests
+        run: |
+          Invoke-Pester -Path .\TreeView\Tests -Output Detailed
 
-            - name: Install PSScriptAnalyzer
-              shell: pwsh
-              run: Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
 
-            - name: Run PSScriptAnalyzer
-              shell: pwsh
-              run: Invoke-ScriptAnalyzer -Path .\TreeView -Recurse -Severity Warning
+      - name: Run PSScriptAnalyzer
+        shell: pwsh
+        run: Invoke-ScriptAnalyzer -Path .\TreeView -Recurse -Severity Warning
 
-            - name: Update ModuleVersion
-              shell: pwsh
-              run: |
-                  $psd1Path = ".\TreeView\TreeView.psd1"
-                  $content = Get-Content $psd1Path -Raw
-                  $newVersion = "1.0.$env:GITHUB_RUN_NUMBER"
-                  $content = $content -replace "ModuleVersion\s*=\s*'.*?'", "ModuleVersion = '$newVersion'"
-                  Set-Content $psd1Path $content -Encoding utf8
-              env:
-                  GITHUB_RUN_NUMBER: ${{ github.run_number }}
+      - name: Update ModuleVersion
+        shell: pwsh
+        run: |
+          $psd1Path = ".\TreeView\TreeView.psd1"
+          $content = Get-Content $psd1Path -Raw
+          $newVersion = "1.0.$env:GITHUB_RUN_NUMBER"
+          $content = $content -replace "ModuleVersion\s*=\s*'.*?'", "ModuleVersion = '$newVersion'"
+          Set-Content $psd1Path $content -Encoding utf8
+        env:
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
 
-            - name: Publish to PSGallery
-              if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-              env:
-                  PSGalleryApiKey: ${{ secrets.PSGalleryApiKey }}
-              run: |
-                  Publish-Module -Path .\TreeView -NuGetApiKey $env:PSGalleryApiKey -Repository PSGallery -Force
+      - name: Publish to PSGallery
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          PSGalleryApiKey: ${{ secrets.PSGalleryApiKey }}
+        run: |
+          Publish-Module -Path .\TreeView -NuGetApiKey $env:PSGalleryApiKey -Repository PSGallery -Force
