@@ -1,5 +1,3 @@
----
-
 # 🌲 TreeView — 现代化的 Windows PowerShell 目录树工具
 
 **TreeView** 是一个为 Windows PowerShell / PowerShell 7 打造的现代化 `tree` 命令替代品。
